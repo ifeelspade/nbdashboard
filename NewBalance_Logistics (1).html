@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Balance — Global Supply Chain & Logistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    /* =============================
+       CSS VARIABLES & RESET
+       ============================= */
+    :root {
+      --navy:    #0a1628;
+      --blue:    #1346a3;
+      --sky:     #2563eb;
+      --accent:  #f59e0b;
+      --steel:   #1e2d45;
+      --mid:     #2e4166;
+      --light:   #e8eef8;
+      --white:   #ffffff;
+      --grey:    #64748b;
+      --border:  rgba(255,255,255,0.08);
+      --glow:    rgba(37,99,235,0.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* =============================
+       SCROLLBAR
+       ============================= */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
+
+    /* =============================
+       UTILITY
+       ============================= */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      background: rgba(37,99,235,0.18);
+      border: 1px solid rgba(37,99,235,0.4);
+      color: #93b4ff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: #93a8c4;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .divider {
+      width: 52px; height: 4px;
+      background: linear-gradient(90deg, var(--sky), var(--accent));
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+    section { padding: 100px 0; }
+
+    /* =============================
+       NAV
+       ============================= */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(10,22,40,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1240px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--sky); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #93a8c4;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--sky);
+      color: var(--white);
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* =============================
+       HERO
+       ============================= */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(19,70,163,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(37,99,235,0.12) 0%, transparent 60%),
+        var(--navy);
+    }
+    /* animated grid */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 60% 40%, black 30%, transparent 80%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1240px; margin: 0 auto; padding: 0 32px;
+      padding-top: 100px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-eyebrow-line { width: 36px; height: 2px; background: var(--sky); }
+    .hero-eyebrow span {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #7fa9e0;
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 780px;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-title em { font-style: normal; color: var(--sky); }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #93a8c4;
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 44px;
+      opacity: 0; animation: fadeUp 0.7s 0.6s forwards;
+    }
+    .hero-buttons {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.75s forwards;
+    }
+    .btn-primary {
+      background: var(--sky);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px var(--glow);
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 28px var(--glow); }
+    .btn-ghost {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--sky); background: rgba(37,99,235,0.1); }
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      margin-top: 72px;
+      opacity: 0; animation: fadeUp 0.7s 0.9s forwards;
+    }
+    .hero-stat-item {}
+    .hero-stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--sky); }
+    .hero-stat-label { font-size: 0.82rem; color: #64748b; margin-top: 4px; }
+
+    /* floating card */
+    .hero-floater {
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      background: rgba(30,45,69,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 32px;
+      width: 260px;
+      opacity: 0; animation: fadeLeft 0.8s 1s forwards;
+    }
+    .floater-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; color: #93a8c4; letter-spacing: 0.05em; }
+    .floater-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .floater-row:last-child { border-bottom: none; }
+    .floater-badge {
+      padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 600;
+    }
+    .badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-blue  { background: rgba(37,99,235,0.2);  color: #93b4ff; }
+    .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+    /* =============================
+       OVERVIEW CARDS
+       ============================= */
+    #overview { padding-top: 80px; padding-bottom: 80px; }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .overview-card {
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px 24px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--accent));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .overview-card:hover { transform: translateY(-4px); border-color: rgba(37,99,235,0.4); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .overview-card:hover::before { opacity: 1; }
+    .card-icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      background: rgba(37,99,235,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .card-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
+    .card-label { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+
+    /* =============================
+       SUPPLIERS
+       ============================= */
+    #suppliers { background: var(--steel); }
+    .suppliers-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
+    }
+    .supplier-chart-wrap { position: relative; }
+    .supplier-chart-wrap canvas { max-height: 360px; }
+
+    .tier-tabs { display: flex; gap: 8px; margin-bottom: 28px; }
+    .tier-tab {
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tier-tab.active { background: var(--sky); border-color: var(--sky); }
+
+    .supplier-table { width: 100%; border-collapse: collapse; }
+    .supplier-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+      padding: 0 12px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .supplier-table td {
+      padding: 13px 12px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .supplier-table tr:hover td { background: rgba(37,99,235,0.05); }
+    .prod-pill {
+      display: inline-block;
+      background: rgba(37,99,235,0.12);
+      color: #93b4ff;
+      font-size: 0.72rem;
+      padding: 2px 9px;
+      border-radius: 50px;
+    }
+
+    /* =============================
+       SUPPLY SOURCE MAP INFO
+       ============================= */
+    #sourcing { background: var(--navy); }
+    .sourcing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .source-card {
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .source-card:hover { transform: translateY(-3px); border-color: rgba(37,99,235,0.35); }
+    .source-flag { font-size: 2rem; margin-bottom: 14px; }
+    .source-country { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .source-pct {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--sky);
+      margin-bottom: 12px;
+    }
+    .source-desc { font-size: 0.83rem; color: #93a8c4; line-height: 1.65; margin-bottom: 16px; }
+    .source-materials {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .mat-tag {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      color: #c3d0e8;
+    }
+
+    /* =============================
+       TRANSPORTATION
+       ============================= */
+    #transportation { background: var(--steel); }
+    .transport-top {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 64px;
+    }
+    .chart-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .chart-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      margin-bottom: 20px;
+      color: #93a8c4;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .chart-card canvas { max-height: 280px; }
+
+    .transport-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .tc {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 20px;
+    }
+    .tc-mode { font-size: 1.4rem; margin-bottom: 10px; }
+    .tc-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .tc-cost { font-size: 0.82rem; color: #93a8c4; }
+    .tc-route { font-size: 0.78rem; color: #64748b; margin-top: 6px; }
+
+    /* =============================
+       INVENTORY
+       ============================= */
+    #inventory { background: var(--navy); }
+    .inv-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .inv-params {
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .inv-params-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #93a8c4; margin-bottom: 20px;
+    }
+    .param-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .param-row:last-child { border-bottom: none; }
+    .param-val { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--sky); }
+
+    .inv-chart-wrap canvas { max-height: 320px; }
+
+    /* demand forecast full width */
+    .demand-full {
+      margin-top: 48px;
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .demand-full canvas { max-height: 280px; }
+
+    /* =============================
+       LOGISTICS REVENUE
+       ============================= */
+    #revenue { background: var(--steel); }
+    .rev-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; align-items: start; }
+    .rev-table { width: 100%; border-collapse: collapse; }
+    .rev-table th {
+      text-align: left; font-size: 0.75rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #64748b;
+      padding: 0 16px 14px; border-bottom: 1px solid var(--border);
+    }
+    .rev-table td {
+      padding: 14px 16px; font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .rev-table tr:hover td { background: rgba(37,99,235,0.05); }
+    .growth-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 600; }
+    .growth-up { color: #4ade80; }
+
+    .rev-kpis { display: flex; flex-direction: column; gap: 16px; }
+    .kpi-box {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+    }
+    .kpi-label { font-size: 0.78rem; color: #64748b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .kpi-val { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; }
+    .kpi-sub { font-size: 0.78rem; color: #93a8c4; margin-top: 4px; }
+
+    /* =============================
+       ESG / PROCUREMENT STRATEGY
+       ============================= */
+    #strategy { background: var(--navy); }
+    .strategy-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .strat-card {
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s;
+    }
+    .strat-card:hover { transform: translateY(-3px); }
+    .strat-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .strat-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .strat-body { font-size: 0.85rem; color: #93a8c4; line-height: 1.7; }
+
+    /* =============================
+       PORTS / REGIONS
+       ============================= */
+    #ports { background: var(--steel); }
+    .ports-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .port-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .port-card:hover { border-color: rgba(37,99,235,0.4); }
+    .port-region {
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--sky); margin-bottom: 10px;
+    }
+    .port-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .port-role { font-size: 0.82rem; color: #93a8c4; margin-bottom: 12px; }
+    .port-list { font-size: 0.8rem; color: #64748b; line-height: 1.7; }
+
+    /* =============================
+       DOCUMENTS
+       ============================= */
+    #documents { background: var(--navy); }
+    .doc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .doc-item {
+      display: flex; gap: 14px;
+      background: var(--steel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .doc-item:hover { border-color: rgba(37,99,235,0.4); }
+    .doc-ico {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: rgba(37,99,235,0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .doc-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+    .doc-desc { font-size: 0.75rem; color: #64748b; line-height: 1.55; }
+
+    /* =============================
+       FOOTER
+       ============================= */
+    footer {
+      background: #060e1a;
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1240px; margin: 0 auto; padding: 0 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .footer-brand { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; }
+    .footer-brand span { color: var(--sky); }
+    .footer-note { font-size: 0.8rem; color: #3d5070; }
+
+    /* =============================
+       ANIMATIONS
+       ============================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translate(24px, -50%); }
+      to   { opacity: 1; transform: translate(0, -50%); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* =============================
+       RESPONSIVE
+       ============================= */
+    @media (max-width: 1080px) {
+      .hero-floater { display: none; }
+    }
+    @media (max-width: 860px) {
+      .suppliers-layout, .transport-top, .inv-layout, .rev-layout { grid-template-columns: 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 0; }
+      .container { padding: 0 20px; }
+    }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,22,40,0.98);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; }
+    .mobile-close {
+      position: absolute; top: 24px; right: 28px;
+      font-size: 1.8rem; cursor: pointer; color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<!-- =================== NAV =================== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">NB <span>Logistics</span></div>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#suppliers">Suppliers</a></li>
+      <li><a href="#transportation">Transport</a></li>
+      <li><a href="#inventory">Inventory</a></li>
+      <li><a href="#strategy">Strategy</a></li>
+      <li><a href="#documents">Documents</a></li>
+    </ul>
+    <a href="#overview" class="nav-cta">Explore Data</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#overview" onclick="closeMobile()">Overview</a>
+  <a href="#suppliers" onclick="closeMobile()">Suppliers</a>
+  <a href="#transportation" onclick="closeMobile()">Transport</a>
+  <a href="#inventory" onclick="closeMobile()">Inventory</a>
+  <a href="#strategy" onclick="closeMobile()">Strategy</a>
+  <a href="#documents" onclick="closeMobile()">Documents</a>
+</div>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Global Supply Chain Intelligence</span>
+    </div>
+    <h1 class="hero-title">
+      New Balance<br /><em>Logistics</em> Network
+    </h1>
+    <p class="hero-desc">
+      An end-to-end analysis of New Balance's global procurement, supplier
+      ecosystem, transportation strategy, and inventory planning across
+      six continents.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">$7.8<span>B</span></div>
+        <div class="hero-stat-label">2024 Revenue</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">200<span>+</span></div>
+        <div class="hero-stat-label">Global Suppliers</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">9<span>+</span></div>
+        <div class="hero-stat-label">Source Countries</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">~$858<span>M</span></div>
+        <div class="hero-stat-label">Logistics Spend 2024</div>
+      </div>
+    </div>
+  </div>
+  <!-- floating card -->
+  <div class="hero-floater">
+    <div class="floater-title">LIVE METRICS 2024</div>
+    <div class="floater-row"><span>Revenue YoY</span><span class="floater-badge badge-green">+20%</span></div>
+    <div class="floater-row"><span>Sea Freight</span><span class="floater-badge badge-blue">70% Inbound</span></div>
+    <div class="floater-row"><span>Inventory Turnover</span><span class="floater-badge badge-amber">4× / yr</span></div>
+    <div class="floater-row"><span>Lead Time</span><span class="floater-badge badge-blue">~1 Month</span></div>
+    <div class="floater-row"><span>ESG Pillar</span><span class="floater-badge badge-green">Active</span></div>
+  </div>
+</section>
+
+<!-- =================== OVERVIEW CARDS =================== -->
+<section id="overview">
+  <div class="container">
+    <div class="overview-grid reveal">
+      <div class="overview-card">
+        <div class="card-icon">📦</div>
+        <div class="card-value">$7.8B</div>
+        <div class="card-label">Total Revenue 2024</div>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🏭</div>
+        <div class="card-value">200+</div>
+        <div class="card-label">Tier 1 & Tier 2 Suppliers</div>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🚢</div>
+        <div class="card-value">70%</div>
+        <div class="card-label">Inbound via Sea Freight</div>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🌏</div>
+        <div class="card-value">9+</div>
+        <div class="card-label">Source Countries</div>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🔄</div>
+        <div class="card-value">4×</div>
+        <div class="card-label">Inventory Turnover Rate</div>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">♻️</div>
+        <div class="card-value">100%</div>
+        <div class="card-label">Target Preferred Leather</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SUPPLIERS =================== -->
+<section id="suppliers">
+  <div class="container">
+    <div class="tag">Supply Chain</div>
+    <div class="section-title reveal">Global Supplier Network</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance operates a two-tier supplier model spanning Asia, North America, Europe, and beyond —
+      balancing cost, quality, and sustainability.
+    </p>
+    <div class="suppliers-layout">
+      <div class="reveal">
+        <div style="margin-bottom:20px">
+          <canvas id="supplierChart"></canvas>
+        </div>
+        <p style="font-size:0.8rem;color:#64748b;margin-top:12px;">
+          Supplier distribution by country across Tier 1 &amp; Tier 2 categories.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="tier-tabs">
+          <button class="tier-tab active" onclick="showTier('t1',this)">Tier 1</button>
+          <button class="tier-tab" onclick="showTier('t2',this)">Tier 2</button>
+        </div>
+        <div id="t1-table">
+          <table class="supplier-table">
+            <thead>
+              <tr><th>Country</th><th>Supplier</th><th>Type</th></tr>
+            </thead>
+            <tbody id="t1body"></tbody>
+          </table>
+        </div>
+        <div id="t2-table" style="display:none">
+          <table class="supplier-table">
+            <thead>
+              <tr><th>Country</th><th>Supplier</th><th>Category</th></tr>
+            </thead>
+            <tbody id="t2body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SOURCING =================== -->
+<section id="sourcing">
+  <div class="container">
+    <div class="tag">Raw Material Sourcing</div>
+    <div class="section-title reveal">Why These Countries?</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance strategically sources from key countries combining cost efficiency,
+      manufacturing capability, and sustainability standards.
+    </p>
+    <div class="sourcing-grid reveal">
+      <div class="source-card">
+        <div class="source-flag">🇻🇳</div>
+        <div class="source-country">Vietnam</div>
+        <div class="source-pct">~35%</div>
+        <div class="source-desc">Leading footwear exporter with low labor costs (~half of China), skilled workforce, strong quality control and growing sustainability initiatives.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Footwear</span><span class="mat-tag">Apparel</span><span class="mat-tag">Soles</span>
+          <span class="mat-tag">Chemicals</span><span class="mat-tag">Leather</span><span class="mat-tag">Packaging</span>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇨🇳</div>
+        <div class="source-country">China</div>
+        <div class="source-pct">~30%</div>
+        <div class="source-desc">World's largest producer of synthetic & natural textiles. Advanced tech for sustainable materials (recycled polyester, 3D knitting), large-scale production.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Apparel</span><span class="mat-tag">Textile</span><span class="mat-tag">Synthetic</span>
+          <span class="mat-tag">Packaging</span><span class="mat-tag">Chemicals</span><span class="mat-tag">Footwear</span>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇮🇩</div>
+        <div class="source-country">Indonesia</div>
+        <div class="source-pct">~12%</div>
+        <div class="source-desc">Fast-growing hub specializing in natural rubber & leather for outsoles. Competitive labor rates and increasing eco-friendly tannery standards.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Leather</span><span class="mat-tag">Soles</span><span class="mat-tag">Footwear</span>
+          <span class="mat-tag">Chemicals</span><span class="mat-tag">Threads</span>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇹🇼</div>
+        <div class="source-country">Taiwan</div>
+        <div class="source-pct">~10%</div>
+        <div class="source-desc">R&D powerhouse for footwear production. Efficient manufacturing with lower defect rates, strong supply chain support for high-quality textiles.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Apparel</span><span class="mat-tag">Footwear</span><span class="mat-tag">Textile</span>
+          <span class="mat-tag">Synthetic</span>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇮🇳</div>
+        <div class="source-country">India</div>
+        <div class="source-pct">~6%</div>
+        <div class="source-desc">Cost-effective quality-conscious production with skilled craftsmanship, government incentives, improving compliance with international standards.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Footwear</span><span class="mat-tag">Subcontractor</span>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇰🇭</div>
+        <div class="source-country">Cambodia</div>
+        <div class="source-pct">~7%</div>
+        <div class="source-desc">Quality textile and apparel manufacturing hub with competitive labor and growing export infrastructure.</div>
+        <div class="source-materials">
+          <span class="mat-tag">Apparel</span><span class="mat-tag">Textile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TRANSPORTATION =================== -->
+<section id="transportation">
+  <div class="container">
+    <div class="tag">Transportation</div>
+    <div class="section-title reveal">Inbound & Outbound Logistics</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance employs an ocean-first inbound strategy from Asia, complemented by selective air freight
+      for time-sensitive launches and regional distribution centers for efficient outbound delivery.
+    </p>
+
+    <div class="transport-top reveal">
+      <div class="chart-card">
+        <div class="chart-card-title">Inbound Transport Mix</div>
+        <canvas id="inboundChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Outbound Transport Mix</div>
+        <canvas id="outboundChart"></canvas>
+      </div>
+    </div>
+
+    <div class="transport-cards reveal">
+      <div class="tc">
+        <div class="tc-mode">🚢</div>
+        <div class="tc-name">Ocean / Sea Freight</div>
+        <div class="tc-cost">$1,500 – $3,500 per FEU</div>
+        <div class="tc-route">Asia → US / EU</div>
+      </div>
+      <div class="tc">
+        <div class="tc-mode">✈️</div>
+        <div class="tc-name">Air Freight</div>
+        <div class="tc-cost">$4.00 – $8.00 per kg</div>
+        <div class="tc-route">Asia → USA (selective)</div>
+      </div>
+      <div class="tc">
+        <div class="tc-mode">🚛</div>
+        <div class="tc-name">Domestic Road</div>
+        <div class="tc-cost">$1.20 – $2.50 per mile</div>
+        <div class="tc-route">DC → Retailer</div>
+      </div>
+      <div class="tc">
+        <div class="tc-mode">🚂</div>
+        <div class="tc-name">Intermodal Rail + Truck</div>
+        <div class="tc-cost">~$1,000 – $1,800 per FEU</div>
+        <div class="tc-route">Port → Regional DC (USA)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== INVENTORY =================== -->
+<section id="inventory">
+  <div class="container">
+    <div class="tag">Inventory Planning</div>
+    <div class="section-title reveal">Inventory & Revenue Trends</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance maintains an inventory turnover of 4–4.5× per year,
+      balancing stock availability against carrying costs with sophisticated demand forecasting.
+    </p>
+
+    <div class="inv-layout reveal">
+      <div>
+        <div class="chart-card">
+          <div class="chart-card-title">Revenue vs COGS (2020–2024)</div>
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+      <div class="inv-params">
+        <div class="inv-params-title">Key Parameters</div>
+        <div class="param-row"><span>Annual Revenue (2024)</span><span class="param-val">$7.8B</span></div>
+        <div class="param-row"><span>COGS %</span><span class="param-val">55%</span></div>
+        <div class="param-row"><span>Inventory Turnover</span><span class="param-val">4×</span></div>
+        <div class="param-row"><span>Unit Selling Price</span><span class="param-val">$80</span></div>
+        <div class="param-row"><span>Unit Cost</span><span class="param-val">$40</span></div>
+        <div class="param-row"><span>Ordering Cost</span><span class="param-val">$50,000</span></div>
+        <div class="param-row"><span>Holding Cost Rate</span><span class="param-val">25%</span></div>
+        <div class="param-row"><span>Lead Time</span><span class="param-val">~1 Month</span></div>
+        <div class="param-row"><span>Service Level (Z)</span><span class="param-val">1.65</span></div>
+      </div>
+    </div>
+
+    <div class="demand-full reveal">
+      <div class="chart-card-title">2024 Monthly Demand — Forecast vs Actual (Units)</div>
+      <canvas id="demandChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- =================== REVENUE =================== -->
+<section id="revenue">
+  <div class="container">
+    <div class="tag">Logistics Spend</div>
+    <div class="section-title reveal">Logistics Cost Overview</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      Logistics spend is estimated at ~11% of total revenue, consistent with industry benchmarks
+      for global athletic footwear brands.
+    </p>
+    <div class="rev-layout reveal">
+      <div>
+        <table class="rev-table">
+          <thead>
+            <tr><th>Year</th><th>Revenue (USD)</th><th>Logistics Spend (~11%)</th><th>YoY Growth</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2020</td><td>$3.3B</td><td>$363M</td><td>—</td></tr>
+            <tr><td>2021</td><td>$4.1B</td><td>$451M</td><td><span class="growth-pill growth-up">↑ 24.2%</span></td></tr>
+            <tr><td>2022</td><td>$5.3B</td><td>$583M</td><td><span class="growth-pill growth-up">↑ 29.3%</span></td></tr>
+            <tr><td>2023</td><td>$6.5B</td><td>$715M</td><td><span class="growth-pill growth-up">↑ 22.6%</span></td></tr>
+            <tr><td>2024</td><td>$7.8B</td><td>$858M</td><td><span class="growth-pill growth-up">↑ 20.0%</span></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:32px">
+          <div class="chart-card">
+            <div class="chart-card-title">Revenue & Logistics Spend Trend (USD Billions)</div>
+            <canvas id="logisticsChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="rev-kpis">
+        <div class="kpi-box">
+          <div class="kpi-label">Inbound Sea Freight Cost</div>
+          <div class="kpi-val">4–8%</div>
+          <div class="kpi-sub">of FOB value (primary mode)</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Air Freight Cost Share</div>
+          <div class="kpi-val">20–30%</div>
+          <div class="kpi-sub">used selectively for launches</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Inland Trucking/Rail</div>
+          <div class="kpi-val">7–12%</div>
+          <div class="kpi-sub">of inbound transport</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Outbound Road</div>
+          <div class="kpi-val">8–15%</div>
+          <div class="kpi-sub">distribution cost share</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== STRATEGY =================== -->
+<section id="strategy">
+  <div class="container">
+    <div class="tag">Procurement Strategy</div>
+    <div class="section-title reveal">Best-in-Class Procurement & ESG</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance balances long-term supplier partnerships, responsible purchasing practices,
+      and ambitious environmental goals aligned to its global ESG framework.
+    </p>
+    <div class="strategy-grid reveal">
+      <div class="strat-card">
+        <div class="strat-icon">🤝</div>
+        <div class="strat-title">Strategic Supplier Partnerships</div>
+        <div class="strat-body">Builds long-term contracts with textile & footwear suppliers in Vietnam, Taiwan & China. Ensures stable quality, predictable costs, and shared innovation on performance materials. KPI: On-time delivery rate.</div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-icon">🌿</div>
+        <div class="strat-title">Environmental ESG</div>
+        <div class="strat-body">Uses recycled polyester, sustainable leather, and eco-cotton. Targets 100% preferred leather (LWG-certified). Reduces carbon emissions through energy efficiency programs in factories. KPI: Material defect rate.</div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-icon">👥</div>
+        <div class="strat-title">Social Responsibility</div>
+        <div class="strat-body">Ensures fair wages and safe working conditions across the supply chain. Conducts regular supplier audits and supports capacity building programs. KPI: Supplier quality index.</div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-icon">🏭</div>
+        <div class="strat-title">Vendor-Managed Inventory</div>
+        <div class="strat-body">Key materials managed through VMI to reduce ordering lead times. Consolidation at origin ports to optimize container utilization and reduce per-unit logistics cost.</div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-icon">🌐</div>
+        <div class="strat-title">Ocean-First Shipping</div>
+        <div class="strat-body">Sea freight is the primary inbound mode at 70% of volume. Air freight reserved for high-value product launches and replenishment. Proximity sourcing for US &amp; UK "Made" programs reduces lead times.</div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-icon">🏗️</div>
+        <div class="strat-title">Regional DC Network</div>
+        <div class="strat-body">Regional distribution centers enable cross-docking and last-mile optimization. Third-party logistics (3PL) partnerships provide scalable capacity for peak seasons and e-commerce volumes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PORTS =================== -->
+<section id="ports">
+  <div class="container">
+    <div class="tag">Global Network</div>
+    <div class="section-title reveal">Key Ports & Regions</div>
+    <div class="divider"></div>
+    <div class="ports-grid reveal">
+      <div class="port-card">
+        <div class="port-region">Asia — Origin Hubs</div>
+        <div class="port-name">Vietnam & China</div>
+        <div class="port-role">Inbound – manufacturing & sourcing</div>
+        <div class="port-list">Ho Chi Minh City · Hai Phong · Shanghai · Ningbo</div>
+      </div>
+      <div class="port-card">
+        <div class="port-region">Asia — Material Consolidation</div>
+        <div class="port-name">China</div>
+        <div class="port-role">Inbound material consolidation</div>
+        <div class="port-list">Shanghai · Ningbo</div>
+      </div>
+      <div class="port-card">
+        <div class="port-region">Europe — Outbound</div>
+        <div class="port-name">EU Gateway Ports</div>
+        <div class="port-role">Outbound distribution</div>
+        <div class="port-list">Rotterdam · Antwerp · Hamburg</div>
+      </div>
+      <div class="port-card">
+        <div class="port-region">North America — Outbound</div>
+        <div class="port-name">US Primary Gateways</div>
+        <div class="port-role">Outbound distribution</div>
+        <div class="port-list">Los Angeles / Long Beach · New York / New Jersey</div>
+      </div>
+      <div class="port-card">
+        <div class="port-region">UK — Inbound & Outbound</div>
+        <div class="port-name">Made in UK</div>
+        <div class="port-role">Supports Flimby manufacturing and EU distribution</div>
+        <div class="port-list">Felixstowe · Southampton</div>
+      </div>
+      <div class="port-card">
+        <div class="port-region">South Asia — Origin</div>
+        <div class="port-name">Sri Lanka & India</div>
+        <div class="port-role">Apparel & textile sourcing</div>
+        <div class="port-list">Colombo · Mumbai / Chennai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DOCUMENTS =================== -->
+<section id="documents">
+  <div class="container">
+    <div class="tag">Compliance</div>
+    <div class="section-title reveal">Required Trade Documents</div>
+    <div class="divider"></div>
+    <p class="section-sub reveal">
+      New Balance manages a comprehensive set of trade and compliance documents
+      across inbound and outbound logistics flows.
+    </p>
+    <div class="doc-grid reveal">
+      <div class="doc-item">
+        <div class="doc-ico">🧾</div>
+        <div>
+          <div class="doc-title">Commercial Invoice</div>
+          <div class="doc-desc">Declares transaction value for customs valuation and duty calculation. Issued by supplier.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">📋</div>
+        <div>
+          <div class="doc-title">Packing List</div>
+          <div class="doc-desc">Details shipment contents — cartons, weights, dimensions for customs clearance.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">⚓</div>
+        <div>
+          <div class="doc-title">Bill of Lading (B/L)</div>
+          <div class="doc-desc">Contract of carriage and proof of shipment for ocean freight. Issued by shipping line.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">✈️</div>
+        <div>
+          <div class="doc-title">Air Waybill (AWB)</div>
+          <div class="doc-desc">Receipt and contract for air cargo transportation. Issued by airline / carrier.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">🌍</div>
+        <div>
+          <div class="doc-title">Certificate of Origin</div>
+          <div class="doc-desc">Certifies country of manufacture for tariff and trade agreement benefits.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">📜</div>
+        <div>
+          <div class="doc-title">Purchase Order / Contract</div>
+          <div class="doc-desc">Defines commercial terms, pricing, quantities, Incoterms between NB and supplier.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">🛡️</div>
+        <div>
+          <div class="doc-title">Insurance Certificate</div>
+          <div class="doc-desc">Proof of cargo insurance coverage during transit. Issued by insurer.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">🔒</div>
+        <div>
+          <div class="doc-title">Customs Declaration</div>
+          <div class="doc-desc">Legal authorization to import goods. Filed via US CBP, EU TARIC, UK CDS systems.</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-ico">✅</div>
+        <div>
+          <div class="doc-title">Product Compliance Certificates</div>
+          <div class="doc-desc">Confirms compliance with safety and chemical regulations (REACH, CPSIA, etc.).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">NB <span>Logistics</span></div>
+    <div class="footer-note">© 2024 New Balance Supply Chain Analysis · Data sourced from public reports &amp; industry benchmarks</div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================
+   MOBILE MENU
+   ===================================================== */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* =====================================================
+   NAV SCROLL
+   ===================================================== */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.background = window.scrollY > 60
+    ? 'rgba(6,14,26,0.98)'
+    : 'rgba(10,22,40,0.9)';
+});
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.style.transitionDelay = (i % 4) * 0.08 + 's';
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(r => revealObserver.observe(r));
+
+/* =====================================================
+   SUPPLIER DATA
+   ===================================================== */
+const t1 = [
+  ['Australia','Belgravia Sports Apparel Pty Ltd','Apparel'],
+  ['Cambodia','Eternal Fame (Cambodia) Garments Co., Ltd','Apparel'],
+  ['Cambodia','Grand Twins International (Cambodia) PLC','Apparel'],
+  ['Cambodia','Joint Force Sporting Goods (Cambodia) Co., Ltd','Apparel'],
+  ['Cambodia','Quint Major Industrial Co., Ltd.','Apparel'],
+  ['Cambodia','Trax Apparel (Cambodia) Co., Ltd.','Apparel'],
+  ['Canada','ARS Sport','Equipment'],
+  ['Canada','East Port Manufacturing','Accessories'],
+  ['Canada','Scapa North America','Equipment'],
+  ['China','Ash Cloud Co., Ltd, Shenzhen','Accessories'],
+  ['China','Chuan Yi Qi Tech. (Shenzhen) Co., Ltd.','Equipment'],
+  ['China','Daiwabo Industrial (Suzhou) Co., Ltd.','Apparel'],
+  ['China','Dongguan City Eon Sporting Good Co., Ltd.','Equipment'],
+  ['China','Fengcheng Chungjye Shoes Co., Ltd.','Footwear'],
+];
+const t2 = [
+  ['China','Jiangmen Xinhui Victory City Co., Ltd.','Textile'],
+  ['Vietnam','Sheng Nuo Vietnam','Soles'],
+  ['Taiwan (R.O.C.)','Men-Chuen Fibre Industry Co., Ltd.','Textile'],
+  ['Vietnam','EP/Gang Wei','Soles'],
+  ['China','Top Star Textile Limited (Ningbo)','Textile'],
+  ['China','SAN FANG CHINA (TR1)','Synthetic'],
+  ['China','SINCETECH','Textile'],
+  ['Sri Lanka','Best Pacific Textile (Hong Kong) Ltd.','Textile'],
+  ['China','Nice Dyeing Factory Limited','Textile'],
+  ['China','DongGuan G-Pack Packaging Co.,Ltd','Packaging'],
+  ['Vietnam','Pou Hung Vietnam Company Limited (Rubber/EVA)','Soles'],
+  ['China','Dah Sheng (Zhong Shan City)','Soles'],
+  ['Taiwan (R.O.C.)','Yu Chiang Enterprise Inc.','Textile'],
+  ['China','Nan Pao Resins (Fo Shan) Co., Ltd','Chemicals'],
+];
+
+function populateTable(data, bodyId, colDefs) {
+  const tbody = document.getElementById(bodyId);
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach((cell, i) => {
+      const td = document.createElement('td');
+      if (i === 2) {
+        td.innerHTML = `<span class="prod-pill">${cell}</span>`;
+      } else {
+        td.textContent = cell;
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+populateTable(t1, 't1body');
+populateTable(t2, 't2body');
+
+function showTier(tier, btn) {
+  document.getElementById('t1-table').style.display = tier === 't1' ? '' : 'none';
+  document.getElementById('t2-table').style.display = tier === 't2' ? '' : 'none';
+  document.querySelectorAll('.tier-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* =====================================================
+   CHART DEFAULTS
+   ===================================================== */
+Chart.defaults.color = '#93a8c4';
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+const gridColor = 'rgba(255,255,255,0.05)';
+
+/* =====================================================
+   SUPPLIER COUNTRY CHART (Horizontal Bar)
+   ===================================================== */
+new Chart(document.getElementById('supplierChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Vietnam','China','Taiwan','Indonesia','India','Cambodia','Turkey','Sri Lanka','USA'],
+    datasets: [{
+      label: 'Supplier Count',
+      data: [35, 60, 22, 18, 8, 25, 6, 10, 12],
+      backgroundColor: [
+        '#2563eb','#1d4ed8','#3b82f6','#60a5fa',
+        '#93c5fd','#1e40af','#6d28d9','#0ea5e9','#f59e0b'
+      ],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: gridColor }, border: { display: false } },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+/* =====================================================
+   INBOUND / OUTBOUND DOUGHNUT CHARTS
+   ===================================================== */
+const doughnutDefaults = {
+  responsive: true,
+  cutout: '68%',
+  plugins: {
+    legend: { position: 'bottom', labels: { padding: 16, boxWidth: 12, font: { size: 12 } } }
+  }
+};
+
+new Chart(document.getElementById('inboundChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sea Freight','Air Freight','Road Transport','Rail Transport'],
+    datasets: [{
+      data: [70, 10, 10, 10],
+      backgroundColor: ['#2563eb','#f59e0b','#10b981','#8b5cf6'],
+      borderWidth: 0
+    }]
+  },
+  options: doughnutDefaults
+});
+
+new Chart(document.getElementById('outboundChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Road Transport','Sea Freight','Air Freight','Rail Transport'],
+    datasets: [{
+      data: [30, 45, 15, 10],
+      backgroundColor: ['#10b981','#2563eb','#f59e0b','#8b5cf6'],
+      borderWidth: 0
+    }]
+  },
+  options: doughnutDefaults
+});
+
+/* =====================================================
+   REVENUE vs COGS (2020-2024)
+   ===================================================== */
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2020','2021','2022','2023','2024'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [5, 5.5, 6, 6.5, 7.8],
+        backgroundColor: 'rgba(37,99,235,0.8)',
+        borderRadius: 6,
+      },
+      {
+        label: 'COGS',
+        data: [2.75, 3.03, 3.3, 3.58, 4.29],
+        backgroundColor: 'rgba(245,158,11,0.75)',
+        borderRadius: 6,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { padding: 16, boxWidth: 12 } } },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: gridColor }, border: { display: false },
+        ticks: { callback: v => '$' + v + 'B' }
+      }
+    }
+  }
+});
+
+/* =====================================================
+   DEMAND FORECAST vs ACTUAL
+   ===================================================== */
+new Chart(document.getElementById('demandChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      {
+        label: 'Forecast Demand',
+        data: [7378817,7309118,7846121,8609211,8301655,9092296,10789606,9968368,8202820,8052683,7423901,8595078],
+        borderColor: '#2563eb',
+        backgroundColor: 'rgba(37,99,235,0.1)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#2563eb',
+        pointRadius: 4,
+      },
+      {
+        label: 'Actual Demand',
+        data: [7557356,5910678,6492729,8125125,7460837,9378018,9809883,8560531,9405065,7870872,7474033,7370495],
+        borderColor: '#f59e0b',
+        backgroundColor: 'rgba(245,158,11,0.07)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#f59e0b',
+        pointRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { padding: 16, boxWidth: 12 } } },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: gridColor }, border: { display: false },
+        ticks: { callback: v => (v/1e6).toFixed(1) + 'M' }
+      }
+    }
+  }
+});
+
+/* =====================================================
+   LOGISTICS REVENUE TREND
+   ===================================================== */
+new Chart(document.getElementById('logisticsChart'), {
+  type: 'line',
+  data: {
+    labels: ['2020','2021','2022','2023','2024'],
+    datasets: [
+      {
+        label: 'Revenue (USD B)',
+        data: [3.3, 4.1, 5.3, 6.5, 7.8],
+        borderColor: '#2563eb',
+        backgroundColor: 'rgba(37,99,235,0.12)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#2563eb',
+        pointRadius: 5,
+        yAxisID: 'y',
+      },
+      {
+        label: 'Logistics Spend (USD B)',
+        data: [0.363, 0.451, 0.583, 0.715, 0.858],
+        borderColor: '#f59e0b',
+        backgroundColor: 'rgba(245,158,11,0.08)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#f59e0b',
+        pointRadius: 5,
+        yAxisID: 'y1',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { position: 'bottom', labels: { padding: 16, boxWidth: 12 } } },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        type: 'linear', position: 'left',
+        grid: { color: gridColor }, border: { display: false },
+        ticks: { callback: v => '$' + v + 'B' }
+      },
+      y1: {
+        type: 'linear', position: 'right',
+        grid: { drawOnChartArea: false },
+        border: { display: false },
+        ticks: { callback: v => '$' + v + 'B' }
+      }
+    }
+  }
+});
+
+/* =====================================================
+   COUNTER ANIMATION (hero stats)
+   ===================================================== */
+function animateCounter(el, target, suffix, prefix, decimals) {
+  let start = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { start = target; clearInterval(timer); }
+    el.textContent = (prefix||'') + start.toFixed(decimals||0) + (suffix||'');
+  }, 20);
+}
+</script>
+</body>
+</html>
